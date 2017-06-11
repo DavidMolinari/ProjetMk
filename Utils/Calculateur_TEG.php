@@ -7,6 +7,7 @@
  * Time: 16:46
  */
 require_once 'vendor/autoload.php';
+use Litipk\BigNumbers\Decimal;
 
 class Calculateur_TEG
 {
@@ -146,6 +147,34 @@ class Calculateur_TEG
     public function setTauxDouble(decimal $tauxDouble)
     {
         $this->tauxDouble = $tauxDouble;
+    }
+
+
+    public function calculer(){
+
+
+        $frequenceBd = Decimal::fromString($this->getFrequence());
+        $taux = Decimal::fromString('0.00255485684214703598', Utils::$precision);
+        $tauxEquivalent = Decimal::fromString('0', Utils::$precision);
+        $un = Decimal::fromString('1', Utils::$precision);
+        $cent = Decimal::fromString('100', Utils::$precision);
+        $tauxEquivalent = $taux;
+        $taux = $cent->mul($taux);
+
+        if($this->getTauxEffectif() == "TEG"){
+            $taux = $taux->mul($frequenceBd);
+            $taux->round(2);
+            $this->setTauxDouble($taux);
+        } else {
+            $tauxEquivalent = $un->add($tauxEquivalent);
+            $tauxEquivalent = $tauxEquivalent->pow($frequenceBd->asInteger());
+            $tauxEquivalent = $tauxEquivalent->sub($un);
+            $tauxEquivalent = $cent->mul($tauxEquivalent);
+            $tauxEquivalent->round(2);
+            $this->setTauxDouble($tauxEquivalent);
+        }
+
+        return $this->getTauxDouble();
     }
 
 }

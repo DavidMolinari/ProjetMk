@@ -1,5 +1,6 @@
 {
     "require": {
-        "litipk/php-bignumbers": "^0.8.3"
+        "litipk/php-bignumbers": "^0.8.3",
+        "symfony/var-dumper": "^3.3"
     }
 }

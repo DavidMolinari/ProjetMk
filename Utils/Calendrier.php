@@ -87,7 +87,7 @@ class Calendrier
     /**
      * @return string
      */
-    public function QuelTauxEffectif()
+    public function quelTauxEffectif()
     {
         return "TEG";
     }
@@ -95,7 +95,7 @@ class Calendrier
     /**
      * @return Decimal
      */
-    public function QuelTauxLegal()
+    public function quelTauxLegal()
     {
         $tauxLegal = Decimal::fromString('0.9');
 	    return $tauxLegal;
